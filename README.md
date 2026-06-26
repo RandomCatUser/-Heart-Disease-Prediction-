@@ -225,7 +225,7 @@ Built as a machine learning project for educational purposes.
 
 #  requirements.txt
 
-```txt id="bq8zq1"
+```
 pandas
 numpy
 scikit-learn
@@ -242,4 +242,4 @@ lightgbm
 catboost
 ````
 
----# -Heart-Disease-Prediction-
+ -Heart-Disease-Prediction-
