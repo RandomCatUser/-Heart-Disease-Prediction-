@@ -24,7 +24,7 @@ Built with Python, Scikit-learn, Streamlit, FastAPI, and SHAP.
 
 ## Dataset
 
-Uses the **UCI Heart Disease Dataset**:
+Uses the **UCI Heart Disease Dataset** (processed Cleveland dataset):
 
 Features include:
 - Age
@@ -41,6 +41,8 @@ Features include:
 Target:
 - `0` = Low risk
 - `1` = High risk
+
+The training script downloads and cleans the dataset from the UCI repository if `data/heart.csv` is not already present.
 
 ---
 

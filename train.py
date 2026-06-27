@@ -1,8 +1,6 @@
 import os
 import pandas as pd
 
-import kagglehub
-
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
@@ -24,21 +22,27 @@ from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 from catboost import CatBoostClassifier
 
-from config import MODEL_PATH, TEST_SIZE, RANDOM_STATE
+from config import MODEL_PATH, TEST_SIZE, RANDOM_STATE, DATASET, UCI_DATA_URL, UCI_COLUMNS
 from utils import save_model
 
-print(" Downloading dataset from Kaggle...")
 
-# -----------------------------
-# Load dataset using kagglehub
-# -----------------------------
-path = kagglehub.dataset_download("johnsmith88/heart-disease-dataset")
+def load_dataset(path=DATASET):
+    if os.path.exists(path):
+        print("Loaded local dataset:", path)
+        return pd.read_csv(path)
 
-csv_file = [f for f in os.listdir(path) if f.endswith(".csv")][0]
+    print("Downloading UCI Heart Disease dataset...")
+    df = pd.read_csv(UCI_DATA_URL, names=UCI_COLUMNS, na_values="?")
+    df["target"] = (df["target"] > 0).astype(int)
+    df.dropna(inplace=True)
 
-df = pd.read_csv(os.path.join(path, csv_file))
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    df.to_csv(path, index=False)
+    print(f"Saved cleaned dataset to {path} with {len(df)} rows.")
+    return df
 
-print(" Dataset loaded:", csv_file)
+
+df = load_dataset()
 print(df.head())
 
 # -----------------------------

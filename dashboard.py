@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import joblib
 
+from config import DATASET
+
 st.set_page_config(
     page_title="Heart Disease Dashboard",
     page_icon="📊",
@@ -16,7 +18,7 @@ st.set_page_config(
 
 @st.cache_data
 def load_data():
-    return pd.read_csv("data/heart.csv")
+    return pd.read_csv(DATASET)
 
 df = load_data()
 
